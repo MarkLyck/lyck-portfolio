@@ -10,15 +10,15 @@
   </span>
 </div>
 <script>
-  window.addEventListener("load", checkNavigationTiming);
+  window.addEventListener('load', checkNavigationTiming)
 
   function checkNavigationTiming() {
-    var navigationTiming: any = performance.getEntriesByType("navigation")[0];
+    var navigationTiming: any = performance.getEntriesByType('navigation')[0]
     if (navigationTiming.loadEventEnd) {
-      document.getElementById("dom-interactive")!.innerHTML =
-        navigationTiming.domInteractive.toFixed(2);
-      document.getElementById("dom-complete")!.innerHTML =
-        navigationTiming.domComplete.toFixed(2);
-    } else setTimeout(checkNavigationTiming, 0);
+      document.getElementById('dom-interactive')!.innerHTML =
+        navigationTiming.domInteractive.toFixed(2)
+      document.getElementById('dom-complete')!.innerHTML =
+        navigationTiming.domComplete.toFixed(2)
+    } else setTimeout(checkNavigationTiming, 0)
   }
 </script>

@@ -1,70 +1,13 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Benchmark from "../components/Benchmark.astro";
+import Layout from '../layouts/Layout.astro'
+// import Benchmark from '../components/Benchmark.astro'
+import TypeWriter from '../components/TypeWriter.astro'
 ---
 
 <Layout title="Mark Lyck">
   <main>
-    <div class="content">
-      <div id="#typewriter">
-        <h1 id="header"></h1>
-        <h1 id="subtitle"></h1>
-      </div>
-      <Benchmark />
-    </div>
-    <script>
-      import Typewriter from "typewriter-effect/dist/core";
-
-      const typewriterHeader = new Typewriter("#header", {
-        loop: false,
-        delay: 70,
-        deleteSpeed: 50,
-      });
-
-      typewriterHeader
-        .start()
-        .pauseFor(500)
-        .typeString("Hello!")
-        .pauseFor(2000)
-        .deleteChars(1)
-        .pauseFor(200)
-        .typeString(", ")
-        .pauseFor(200)
-        .typeString(
-          'I\'m <span id="name" style="font-weight: 500;">Mark Lyck</span>'
-        )
-        .pauseFor(500)
-        .typeString(".")
-        .pauseFor(500)
-        .callFunction(() => {
-          const h1Cursor: HTMLElement = document.querySelector(
-            "h1 span.Typewriter__cursor"
-          )!;
-          h1Cursor.style.display = "none";
-
-          const typewriterSubtitle = new Typewriter("#subtitle", {
-            loop: false,
-            delay: 70,
-            deleteSpeed: 50,
-          });
-          typewriterSubtitle
-            .start()
-            .pauseFor(1000)
-            .typeString("A fullstack web developer from Denmark.")
-            .pauseFor(500)
-            .changeDeleteSpeed(2)
-            .deleteAll()
-            .pauseFor(400)
-            .typeString(
-              "I have a passion for creating <b>FAST</b> websites that people <b>LOVE</b> using!"
-            )
-            .pauseFor(2000)
-            .deleteAll()
-            .typeString(
-              "Let's build an internet together that sparks <b>joy</b>!"
-            );
-        });
-    </script>
+    <TypeWriter />
+    <!-- <Benchmark /> -->
   </main>
 </Layout>
 
@@ -73,49 +16,16 @@ import Benchmark from "../components/Benchmark.astro";
     height: 100%;
   }
   main::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("/bg.svg");
+    background-image: url('/bg.svg');
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 0.2;
     z-index: 0;
-  }
-  .content {
-    width: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-  }
-  #subtitle {
-    font-weight: 100;
-    line-height: 2.5rem;
-    font-size: 1.5rem;
-    margin-bottom: 4rem;
-    color: gray;
-  }
-
-  #typewriter {
-    height: 200px;
-  }
-  #header {
-    font-size: 3rem;
-    font-weight: 200;
-    margin-bottom: 0.5rem;
-  }
-
-  b {
-    font-weight: 900;
-    color: #0170f3;
   }
 </style>

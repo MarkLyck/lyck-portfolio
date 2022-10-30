@@ -1,0 +1,253 @@
+<div class="content">
+  <div id="#typewriter" class="overflow-hidden p-8">
+    <h1 id="header" class="text-6xl mb-8 font-thin"></h1>
+    <h2 id="subtitle" class="text-3xl font-thin text-neutral-400"></h2>
+  </div>
+</div>
+<script src="https://unpkg.com/emojisplosion/lib/global.js"></script>
+<script>
+  import Typewriter from 'typewriter-effect/dist/core'
+
+  const TIMING_MULTIPLIER = 100
+  const DELAY = 50
+
+  const typewriterHeader = new Typewriter('#header', {
+    loop: false,
+    delay: DELAY,
+  })
+
+  const emojiPosition = (id: string) => {
+    const element: HTMLElement | null = document.querySelector(id)!
+    const { left, top, width, height } = element.getBoundingClientRect()
+
+    const centerX = left + width / 2
+    const centerY = top + height / 2
+
+    return {
+      x: centerX,
+      y: centerY,
+    }
+  }
+
+  const joyEmplosion = () => {
+    emojisplosion({
+      position: emojiPosition('#joy'),
+      emojis: [
+        '🎉',
+        '🍰',
+        '❤️',
+        '🧁',
+        '🐶',
+        '⭐',
+        '🎂',
+        '🥳',
+        '🎈',
+        '✨',
+        '🎊',
+        '🎁',
+        '🪅',
+        '🤗',
+      ],
+    })
+  }
+
+  typewriterHeader
+    .start()
+    .pauseFor(5 * TIMING_MULTIPLIER)
+    .typeString(
+      '<div class="glitch-effect">Hello</div> <div class="waving">👋</div>'
+    )
+    .pauseFor(20 * TIMING_MULTIPLIER)
+    .deleteChars(3)
+    .typeString(', ')
+    .pauseFor(2 * TIMING_MULTIPLIER)
+    .typeString('I\'m <span id="name" class="font-medium">Mark Lyck</span>')
+    .pauseFor(2 * TIMING_MULTIPLIER)
+    .typeString('.')
+    .pauseFor(5 * TIMING_MULTIPLIER)
+    .callFunction(() => {
+      const h1Cursor: HTMLElement = document.querySelector(
+        'h1 span.Typewriter__cursor'
+      )!
+      h1Cursor.style.display = 'none'
+
+      const typewriterSubtitle = new Typewriter('#subtitle', {
+        loop: false,
+        delay: DELAY,
+      })
+
+      typewriterSubtitle
+        .start()
+        .pauseFor(10 * TIMING_MULTIPLIER)
+        .typeString(
+          'A <b id="fullstack" class="text-fuchsia-700 font-extrabold">fullstack</b> web developer from Denmark'
+        )
+        .pauseFor(8 * TIMING_MULTIPLIER)
+        .deleteAll(1)
+        .pauseFor(4 * TIMING_MULTIPLIER)
+        .typeString(
+          'I have a passion for creating <b id="fast" class="text-blue-700 font-extrabold">fast</b>'
+        )
+        .typeString(' websites')
+        .pauseFor(10 * TIMING_MULTIPLIER)
+        .typeString(
+          ' that people <b id="love" class="text-rose-700  font-extrabold">love</b>'
+        )
+        .typeString(' using!')
+        .pauseFor(20 * TIMING_MULTIPLIER)
+        .deleteAll(1)
+        .typeString("Let's build a better internet together")
+        .pauseFor(2 * TIMING_MULTIPLIER)
+        .typeString(
+          ' that sparks <span id="joy" class="text-pink-700 font-extrabold hover:text-pink-600 focus:text-pink-900">joy</span>!'
+        )
+        .callFunction(() => {
+          joyEmplosion()
+          const joyElement = document.querySelector('#joy')!
+          joyElement.addEventListener('click', joyEmplosion)
+        })
+        .callFunction(() => {
+          const h2Cursor: HTMLElement = document.querySelector(
+            'h2 span.Typewriter__cursor'
+          )!
+          h2Cursor.style.display = 'none'
+        })
+    })
+</script>
+
+<style is:global>
+  @keyframes wave-animation {
+    0% {
+      opacity: 0;
+      transform: rotate(0deg);
+    }
+    10% {
+      transform: rotate(14deg);
+    }
+    20% {
+      transform: rotate(-8deg);
+    }
+    30% {
+      transform: rotate(14deg);
+    }
+    40% {
+      transform: rotate(-4deg);
+    }
+    50% {
+      transform: rotate(10deg);
+    }
+    60% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(0deg);
+      opacity: 1;
+    }
+  }
+
+  @keyframes shift {
+    0%,
+    40%,
+    44%,
+    58%,
+    61%,
+    65%,
+    69%,
+    73%,
+    100% {
+      transform: skewX(0);
+    }
+
+    41% {
+      transform: skewX(10deg);
+    }
+
+    42% {
+      transform: skewX(-10deg);
+    }
+
+    63% {
+      transform: skewX(10deg) skewY(-5deg);
+    }
+  }
+
+  @keyframes glitch {
+    0%,
+    80%,
+    84% {
+      transform: skewX(0);
+    }
+
+    81% {
+      transform: skewX(10deg);
+    }
+
+    82% {
+      transform: skewX(-10deg);
+    }
+  }
+</style>
+
+<style is:global>
+  #typewriter {
+    padding: 24px;
+  }
+  .hover-wave {
+    display: inline-block;
+  }
+  .hover-wave:hover {
+    animation-name: wave-animation;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    transform-origin: 70% 70%;
+  }
+
+  .hover-wave:hover:before {
+    content: attr(data-hover);
+  }
+
+  .waving {
+    display: inline-block;
+    animation-name: wave-animation;
+    animation-duration: 3s;
+
+    transform-origin: 70% 70%;
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .glitch-effect {
+    display: inline-block;
+    animation: glitch 5s infinite;
+  }
+
+  .content {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  #name {
+    text-shadow: 0px 0px 30px rgba(255, 255, 255, 0.3);
+  }
+  #fullstack {
+    text-shadow: 0px 0px 30px #c026d3;
+  }
+  #fast {
+    text-shadow: 0px 0px 30px #2563eb;
+  }
+  #love {
+    text-shadow: 0px 0px 30px #e11d48;
+  }
+  #joy {
+    cursor: pointer;
+    transition: all 0.2s;
+    text-shadow: 0px 0px 30px #db2777;
+  }
+</style>
