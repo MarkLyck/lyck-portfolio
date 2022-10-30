@@ -1,0 +1,33 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const renderedAt = new Date();
+---
+
+<Layout title="Mark Lyck">
+  <main>
+    <h1>Mark Lyck</h1>
+    <h2>Rendered at: {renderedAt.toUTCString()}</h2>
+    <h2>
+      <span>DOM interactive after: <span id="dom-interactive"></span>ms</span>
+      <br />
+      <span>Full request to render time: <span id="dom-complete"></span>ms</span
+      >
+    </h2>
+    <script>
+      window.addEventListener("load", checkNavigationTiming);
+
+      function checkNavigationTiming() {
+        console.log("CHECK");
+        var navigationTiming: any =
+          performance.getEntriesByType("navigation")[0];
+        if (navigationTiming.loadEventEnd) {
+          document.getElementById("dom-interactive")!.innerHTML =
+            navigationTiming.domInteractive.toFixed(2);
+          document.getElementById("dom-complete")!.innerHTML =
+            navigationTiming.domComplete.toFixed(2);
+        } else setTimeout(checkNavigationTiming, 0);
+      }
+    </script>
+  </main>
+</Layout>
