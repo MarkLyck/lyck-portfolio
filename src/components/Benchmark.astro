@@ -1,20 +1,21 @@
 <div
-  class="relative flex flex-col-reverse bg-slate-50 rounded-lg p-6 dark:bg-neutral-900 dark:highlight-white/5"
+  class="border-2 flex flex-col-reverse rounded-lg border-neutral-800 p-6 dark:bg-neutral-900"
 >
-  <span
-    >DOM interactive after: <b><span id="dom-interactive"></span>ms</b>
-  </span>
-  <br />
-  <span
-    >Full request to render time: <b><span id="dom-complete"></span>ms</b>
+  <span class="font-light"
+    >This application loaded in: <b
+      ><span id="response-end" class="font-extrabold text-pink-600"></span> ms ⚡</b
+    >
   </span>
 </div>
+
 <script>
   window.addEventListener('load', checkNavigationTiming)
 
   function checkNavigationTiming() {
     var navigationTiming: any = performance.getEntriesByType('navigation')[0]
     if (navigationTiming.loadEventEnd) {
+      document.getElementById('response-end')!.innerHTML =
+        navigationTiming.responseEnd.toFixed(2)
       document.getElementById('dom-interactive')!.innerHTML =
         navigationTiming.domInteractive.toFixed(2)
       document.getElementById('dom-complete')!.innerHTML =
