@@ -1,16 +1,24 @@
 <div
   id="benchmark"
-  class="w-96 border-2 flex flex-col-reverse rounded-lg border-neutral-800 p-6 dark:bg-neutral-900 cursor-pointer hover:scale-105 transition-all"
+  class="w-96 border-2 flex flex-col rounded-lg border-neutral-800 p-6 dark:bg-neutral-900 hover:dark:bg-zinc-900 transition-all"
 >
-  <span class="font-light"
-    >This application loaded in: <b
+  <span class="font-light text-lg"
+    >This website loaded in: <b
       ><span id="response-end" class="font-extrabold text-pink-600"></span>
       ms ⚡</b
     >
   </span>
+  <p id="ideal-response" class="mt-5 text-xs text-neutral-500">
+    <a
+      class="underline hover:text-blue-500"
+      href="https://www.nngroup.com/articles/response-times-3-important-limits/"
+      target="_blank">Jakob Nielsen</a
+    > defined the ideal response-time based on human perceputal abilities. Anything
+    <b class="text-neutral-400">under 100ms is perceived as instant</b>.
+  </p>
 </div>
 
-<style>
+<style is:global>
   @keyframes fade-in {
     from {
       opacity: 0;
@@ -23,6 +31,9 @@
     animation: fade-in;
     animation-duration: 5s;
   }
+  #ideal-response {
+    display: none;
+  }
 </style>
 
 <script>
@@ -31,12 +42,14 @@
   function checkNavigationTiming() {
     var navigationTiming: any = performance.getEntriesByType('navigation')[0]
     if (navigationTiming.loadEventEnd) {
+      const responseTime = navigationTiming.responseEnd
       document.getElementById('response-end')!.innerHTML =
-        navigationTiming.responseEnd.toFixed(2)
-      document.getElementById('dom-interactive')!.innerHTML =
-        navigationTiming.domInteractive.toFixed(2)
-      document.getElementById('dom-complete')!.innerHTML =
-        navigationTiming.domComplete.toFixed(2)
+        responseTime.toFixed(2)
+
+      if (responseTime < 100) {
+        const idealResElement = document.getElementById('ideal-response')!
+        idealResElement.style.display = 'block'
+      }
     } else setTimeout(checkNavigationTiming, 0)
   }
 </script>

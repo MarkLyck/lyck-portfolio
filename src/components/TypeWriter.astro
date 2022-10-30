@@ -1,5 +1,6 @@
 ---
 import Benchmark from './Benchmark.astro'
+import CTA from './CTA.astro'
 ---
 
 <div class="content">
@@ -8,6 +9,7 @@ import Benchmark from './Benchmark.astro'
     <h2 id="subtitle" class="text-3xl font-thin text-neutral-400"></h2>
   </div>
   <Benchmark />
+  <CTA />
 </div>
 <script src="https://unpkg.com/emojisplosion/lib/global.js"></script>
 <script>
@@ -102,7 +104,7 @@ import Benchmark from './Benchmark.astro'
         .pauseFor(20 * TIMING_MULTIPLIER)
         .deleteAll(1)
         .typeString(
-          'Let\'s build a better internet together that sparks <span id="joy" class="text-pink-700 font-extrabold hover:text-pink-600 focus:text-pink-900">joy</span>!'
+          'Let\'s build a a better internet that sparks <span id="joy" class="text-pink-700 font-extrabold hover:text-pink-600 focus:text-pink-900">joy</span>!'
         )
         .callFunction(() => {
           joyEmplosion()
