@@ -101,10 +101,8 @@ import Benchmark from './Benchmark.astro'
         .typeString(' using!')
         .pauseFor(20 * TIMING_MULTIPLIER)
         .deleteAll(1)
-        .typeString("Let's build a better internet together")
-        .pauseFor(2 * TIMING_MULTIPLIER)
         .typeString(
-          ' that sparks <span id="joy" class="text-pink-700 font-extrabold hover:text-pink-600 focus:text-pink-900">joy</span>!'
+          'Let\'s build a better internet together that sparks <span id="joy" class="text-pink-700 font-extrabold hover:text-pink-600 focus:text-pink-900">joy</span>!'
         )
         .callFunction(() => {
           joyEmplosion()
