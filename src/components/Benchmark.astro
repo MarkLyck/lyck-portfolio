@@ -1,0 +1,24 @@
+<div
+  class="relative flex flex-col-reverse bg-slate-50 rounded-lg p-6 dark:bg-neutral-900 dark:highlight-white/5"
+>
+  <span
+    >DOM interactive after: <b><span id="dom-interactive"></span>ms</b>
+  </span>
+  <br />
+  <span
+    >Full request to render time: <b><span id="dom-complete"></span>ms</b>
+  </span>
+</div>
+<script>
+  window.addEventListener("load", checkNavigationTiming);
+
+  function checkNavigationTiming() {
+    var navigationTiming: any = performance.getEntriesByType("navigation")[0];
+    if (navigationTiming.loadEventEnd) {
+      document.getElementById("dom-interactive")!.innerHTML =
+        navigationTiming.domInteractive.toFixed(2);
+      document.getElementById("dom-complete")!.innerHTML =
+        navigationTiming.domComplete.toFixed(2);
+    } else setTimeout(checkNavigationTiming, 0);
+  }
+</script>

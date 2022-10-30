@@ -1,34 +1,69 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Benchmark from "../components/Benchmark.astro";
 ---
 
 <Layout title="Mark Lyck">
   <main>
     <div class="content">
-      <h1>Mark Lyck</h1>
-      <h2>
-        <span
-          >DOM interactive after: <b><span id="dom-interactive"></span>ms</b>
-        </span>
-        <br />
-        <span
-          >Full request to render time: <b><span id="dom-complete"></span>ms</b>
-        </span>
-      </h2>
+      <div id="#typewriter">
+        <h1 id="header"></h1>
+        <h1 id="subtitle"></h1>
+      </div>
+      <Benchmark />
     </div>
     <script>
-      window.addEventListener("load", checkNavigationTiming);
+      import Typewriter from "typewriter-effect/dist/core";
 
-      function checkNavigationTiming() {
-        var navigationTiming: any =
-          performance.getEntriesByType("navigation")[0];
-        if (navigationTiming.loadEventEnd) {
-          document.getElementById("dom-interactive")!.innerHTML =
-            navigationTiming.domInteractive.toFixed(2);
-          document.getElementById("dom-complete")!.innerHTML =
-            navigationTiming.domComplete.toFixed(2);
-        } else setTimeout(checkNavigationTiming, 0);
-      }
+      const typewriterHeader = new Typewriter("#header", {
+        loop: false,
+        delay: 70,
+        deleteSpeed: 50,
+      });
+
+      typewriterHeader
+        .start()
+        .pauseFor(500)
+        .typeString("Hello!")
+        .pauseFor(2000)
+        .deleteChars(1)
+        .pauseFor(200)
+        .typeString(", ")
+        .pauseFor(200)
+        .typeString(
+          'I\'m <span id="name" style="font-weight: 500;">Mark Lyck</span>'
+        )
+        .pauseFor(500)
+        .typeString(".")
+        .pauseFor(500)
+        .callFunction(() => {
+          const h1Cursor: HTMLElement = document.querySelector(
+            "h1 span.Typewriter__cursor"
+          )!;
+          h1Cursor.style.display = "none";
+
+          const typewriterSubtitle = new Typewriter("#subtitle", {
+            loop: false,
+            delay: 70,
+            deleteSpeed: 50,
+          });
+          typewriterSubtitle
+            .start()
+            .pauseFor(1000)
+            .typeString("A fullstack web developer from Denmark.")
+            .pauseFor(500)
+            .changeDeleteSpeed(2)
+            .deleteAll()
+            .pauseFor(400)
+            .typeString(
+              "I have a passion for creating <b>FAST</b> websites that people <b>LOVE</b> using!"
+            )
+            .pauseFor(2000)
+            .deleteAll()
+            .typeString(
+              "Let's build an internet together that sparks <b>joy</b>!"
+            );
+        });
     </script>
   </main>
 </Layout>
@@ -51,29 +86,34 @@ import Layout from "../layouts/Layout.astro";
     z-index: 0;
   }
   .content {
+    width: 100%;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
-  h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     text-align: center;
-    font-weight: 400;
+  }
+  #subtitle {
+    font-weight: 100;
     line-height: 2.5rem;
+    font-size: 1.5rem;
+    margin-bottom: 4rem;
+    color: gray;
   }
-  h1 {
-    font-size: 4rem;
-    text-align: center;
-    background: linear-gradient(
-        180deg,
-        rgba(2, 88, 254, 0.05) 0,
-        rgba(2, 88, 254, 0.15)
-      )
-      #fff;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+
+  #typewriter {
+    height: 200px;
   }
+  #header {
+    font-size: 3rem;
+    font-weight: 200;
+    margin-bottom: 0.5rem;
+  }
+
   b {
     font-weight: 900;
     color: #0170f3;
