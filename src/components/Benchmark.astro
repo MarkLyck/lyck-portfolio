@@ -1,6 +1,6 @@
 <div
   id="benchmark"
-  class="w-96 border-2 flex flex-col rounded-lg border-neutral-800 p-6 dark:bg-neutral-900 hover:dark:bg-zinc-900 transition-all"
+  class="max-w-sm w-full border-2 flex flex-col rounded-lg border-neutral-800 p-6 dark:bg-neutral-900 hover:dark:bg-zinc-900 transition-all"
 >
   <span class="font-light text-lg"
     >This website loaded in: <b
@@ -15,6 +15,11 @@
       target="_blank">Jakob Nielsen</a
     > defined the ideal response-time based on human perceputal abilities. Anything
     <b class="text-neutral-400">under 100ms is perceived as instant</b>.
+  </p>
+  <p id="cold-start" class="mt-5 text-xs text-neutral-500">
+    <span class="text-xl">❄️</span><br /><br />This was loaded from a
+    cold-start. Refresh the page to see how fast it loads when the Edge-worker
+    is hot!
   </p>
 </div>
 
@@ -34,7 +39,19 @@
   #ideal-response {
     display: none;
   }
+  #cold-start {
+    display: none;
+  }
 </style>
+
+<script>
+  const hasLoadedWebsite = sessionStorage.getItem('loaded')
+  if (!hasLoadedWebsite) {
+    const idealResElement = document.getElementById('cold-start')!
+    idealResElement.style.display = 'block'
+    sessionStorage.setItem('loaded', 'true')
+  }
+</script>
 
 <script>
   window.addEventListener('load', checkNavigationTiming)

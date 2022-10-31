@@ -3,7 +3,7 @@ import Benchmark from './Benchmark.astro'
 import CTA from './CTA.astro'
 ---
 
-<div class="content">
+<div class="content p-8">
   <div id="#typewriter" class="overflow-hidden p-8 mb-8">
     <h1 id="header" class="text-6xl mb-8 font-thin"></h1>
     <h2 id="subtitle" class="text-3xl font-thin text-neutral-400"></h2>
@@ -104,7 +104,7 @@ import CTA from './CTA.astro'
         .pauseFor(20 * TIMING_MULTIPLIER)
         .deleteAll(1)
         .typeString(
-          'Let\'s build a a better internet that sparks <span id="joy" class="text-pink-700 font-extrabold hover:text-pink-600 focus:text-pink-900">joy</span>!'
+          'Let\'s build a better internet that sparks <span id="joy" class="text-pink-700 font-extrabold hover:text-pink-600 focus:text-pink-900">joy</span>!'
         )
         .callFunction(() => {
           joyEmplosion()
